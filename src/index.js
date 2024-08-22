@@ -49,7 +49,7 @@ try {
 	let userDiceSize = prompt('What size dice do you wanna roll? ');
 
 	// Check if user entered a number 
-	if (Number.isNaN(userDiceSize)){
+	if (isNaN(userDiceSize)){
 		throw new Error("User did not enter a number");
 	}
 
