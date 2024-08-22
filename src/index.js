@@ -45,20 +45,43 @@ function rollDice(diceSize = 20){
  
 const prompt = require('prompt-sync')({sigint: true});
 
-try {
-	let userDiceSize = prompt('What size dice do you wanna roll? ');
 
-	// Check if user entered a number 
-	if (isNaN(userDiceSize)){
-		throw new Error("User did not enter a number");
+let userWantsToRepeatApp = true;
+
+do {
+
+	try {
+		let userDiceSize = prompt('What size dice do you wanna roll? ');
+	
+		// Check if user entered a number 
+		if (isNaN(userDiceSize)){
+			throw new Error("User did not enter a number");
+		}
+	
+	
+		// Check if number is valid (eg. 1 or greater, whole numbers)
+		let userInputAsNumber = parseInt(userDiceSize);
+		if (userInputAsNumber < 1){
+			throw new Error("User entered an invalid number.");
+		}
+	
+		console.log(rollDice(userInputAsNumber));
+
+
+		
+
+	} catch (error) {
+		console.log("Error occured!");
+		console.error(error.message);
+	} finally {
+
+		let doesUserWantToRepeat = prompt("Roll another dice? Y/N ");
+		if (doesUserWantToRepeat[0].toLocaleLowerCase() == "n") {
+			userWantsToRepeatApp = false;
+		}
+		
 	}
 
+} while (userWantsToRepeatApp);
 
-	// Check if number is valid (eg. 1 or greater, whole numbers)
-	let userInputAsNumber = parseInt(userDiceSize);
 
-	console.log(rollDice(userInputAsNumber));
-} catch (error) {
-	console.log("Error occured!");
-	console.log(error);
-}
